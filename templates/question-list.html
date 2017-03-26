@@ -1,0 +1,17 @@
+{% block body %}
+<form action="{{ url_for('question_page') }}" method=POST class=questions>
+<input type="text" name="question" list="questionName" size="160"/>
+<datalist id="questionName">
+{% for question in question_list %}
+    <option>{{question}}</option>
+{% endfor %}
+</datalist>
+<br>
+<input type=submit name=Submit>
+</form>
+<div class=metanav>
+{% if result %}
+{{result}}
+{% endif %}
+</div>
+{% endblock %}

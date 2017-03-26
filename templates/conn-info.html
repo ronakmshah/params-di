@@ -1,0 +1,18 @@
+<!doctype html>
+<title>paramBI</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+	<h1>params-BI </h1>
+</div>
+<form action="{{ url_for('connection_info') }}" method=POST class=conn-info>
+	<dl>
+		<dt>Connector-Type
+		<dd>
+			<select name="connector-type">
+	  		<option value="elasticsearch">Elasticsearch</option>
+			</select>
+		<dt> Hostname
+		<dd><input type=text name=hostname>
+		<dd><input type=submit name=Submit>
+	</dl>
+</form>

@@ -1,0 +1,2 @@
+db.type: "elasticsearch"
+db.hostname: "192.168.100.200:9200"
