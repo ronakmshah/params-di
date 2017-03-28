@@ -13,7 +13,9 @@ numeric_field_phrases = [
     "return average for",
     "return sum of",
     "return min of",
-    "return max of"
+    "return max of",
+    "return percentile of",
+    "return stats(min,max,sum,count,avg) for"
 ]
 
 string_field_phrases = [
@@ -21,6 +23,9 @@ string_field_phrases = [
     "For every"
 ]
 
+string_field_singular_phrases = [
+    "return unique "
+]
 
 date_query_part = {
     "query": {
@@ -64,7 +69,22 @@ terms_query_part = {
     }
 }
 
-NUMERIC_OP = {"average": "avg", "sum": "sum", "min": "min", "max": "max"}
+cardinality_query_part = {
+    "aggs": {
+        "unique": {
+            "cardinality": {}
+        }
+    }
+}
+
+NUMERIC_OP = {
+    "average": "avg",
+    "sum": "sum",
+    "min": "min",
+    "max": "max",
+    "percentile": "percentiles",
+    "stats(min,max,sum,count,avg)": "stats"
+}
 
 
 class QuestionReader():
@@ -80,6 +100,9 @@ class QuestionReader():
 
     def _es_prepare_query(self):
         string_query = None
+        date_query = None
+        numeric_query = None
+
         if self.question.startswith("For last"):
             x = self.question.split(" ")[2]
             x = re.compile("([0-9]+)([a-zA-Z]+)").match(x)
@@ -109,7 +132,7 @@ class QuestionReader():
                     numeric_query = copy.deepcopy(numeric_query_part)
                     (numeric_query["aggs"]
                         ["numeric"][NUMERIC_OP[operation]]) = {"field": field}
-            # print numeric_query
+            print numeric_query
 
         for phrase in string_field_phrases:
             if ("%" in phrase and phrase.split("%")[0] in self.question and
@@ -125,13 +148,24 @@ class QuestionReader():
                 (string_query["aggs"]
                     ["string_field_agg"]["terms"]) = {"field": field}
 
+        for phrase in string_field_singular_phrases:
+            if (phrase in self.question):
+                index = self.question.find(phrase) + len(phrase)
+                field = self.question[index:].split(' ')[0]
+                string_query = copy.deepcopy(cardinality_query_part)
+                (string_query["aggs"]
+                    ["unique"]["cardinality"]) = {"field": field}
+                print string_query
+
         if "Index reference" in self.question:
             index = self.question.split("Index reference", 1)[1].split(" ")[1]
 
         query_dict = {}
-        query_dict.update(date_query)
+        if date_query:
+            query_dict.update(date_query)
         if string_query:
-            string_query["aggs"]["string_field_agg"].update(numeric_query)
+            if numeric_query:
+                string_query["aggs"]["string_field_agg"].update(numeric_query)
             query_dict.update(string_query)
         else:
             query_dict.update(numeric_query)
