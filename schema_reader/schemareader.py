@@ -32,6 +32,8 @@ class SchemaReader():
         for index in index_list:
             if index in ES_EXCLUDE_INDEX:
                 continue
+            if index != "nuage_samples":
+                continue
             string_fields = []
             numeric_fields = []
             index_mapping = (
