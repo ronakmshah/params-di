@@ -194,3 +194,7 @@ class QuestionReader():
 
     def _es_response(self, handle, query, index):
         return handle.search(index=index, body=query)
+
+    def special_query_es_response(self, handle, query, index=None):
+        index = index if index else DEMO_INDEX
+        return json.dumps(self._es_response(handle.handle, query, index))
