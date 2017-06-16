@@ -1,0 +1,7 @@
+{
+    "size": 5,
+    "sort": [
+        {"balance": {"order": "desc"}}
+    ],
+    "_source": ["balance", "customer", "branch", "timestamp"]
+}

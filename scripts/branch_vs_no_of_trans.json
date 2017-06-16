@@ -1,0 +1,18 @@
+{
+	"size": 0,
+	"aggs": {
+		"transaction": {
+			"filters": {
+				"filters": {
+					"withdrawal": {"match": {"transaction_type": "Withdrawal"}},
+					"deposit": {"match": {"transaction_type": "Deposit"}}
+				}
+			},
+			"aggs": {
+				"transaction_by_branch": {
+					"terms": { "field": "branch"}
+				}
+			}
+		}
+	}
+}
