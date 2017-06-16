@@ -16,8 +16,7 @@ class SchemaReader():
             self._es_read(self.conn_handle.handle)
 
     def _es_read(self, handle):
-        cat_indices = handle.cat.indices().split('\n')
-        index_list = []
+        index_list = handle.cat.indices()
         index_field_list = []
         # Example index_field_list
         # [{"index1": {"alias": "index1-alias",
@@ -25,13 +24,11 @@ class SchemaReader():
         #   "date_field": ["v5"]}},
         #  {"index2", {...}}]
 
-        for line in cat_indices:
-            if line:
-                index_list.append(line.split(' ')[2])
 
         for index in index_list:
             if index in ES_EXCLUDE_INDEX:
                 continue
+            index = index['index']
             string_fields = []
             numeric_fields = []
             index_mapping = (

@@ -1,17 +1,14 @@
 import itertools
 
 date_field_phrases = [
-    "For last <7d/24h/60m>",
-    "Between time <now-48h> and <now-24h>"
+    "For last month"
 ]
 
 numeric_field_phrases = [
     "return average for",
     "return sum of",
     "return min of",
-    "return max of",
-    "return percentile of",
-    "return stats(min,max,sum,count,avg) for"
+    "return max of"
 ]
 
 string_field_phrases = [
@@ -40,7 +37,7 @@ class QuestionGenerator():
             for i in range(count):
                 question += phrase[i] + " "
             question += " ( Index reference: " + index + " )"
-            # print question
+            print question
             self.question_list.append(question)
 
     def _es_num_phrase_generator(self, item):
@@ -94,6 +91,7 @@ class QuestionGenerator():
                                 phrase[3], phrase[4]]))
                 question = (question +
                             " (Index reference: " + item[0] + " )")
+                print question
                 self.question_list.append(question)
 
     def es_question_generator(self, schema):
