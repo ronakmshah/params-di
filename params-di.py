@@ -43,6 +43,11 @@ special_query = {
             "sort": [
                 {"balance": {"order": "desc"}}
             ],
+            "query": {
+                "range": {
+                    "timestamp": { "lte": "now", "gte": "now-1d" }
+                }
+            },
             "_source": ["balance", "customer", "branch", "timestamp"]
         }
     },

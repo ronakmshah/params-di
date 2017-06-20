@@ -36,7 +36,6 @@ class QuestionGenerator():
             question = ""
             for i in range(count):
                 question += phrase[i] + " "
-            question += " ( Index reference: " + index + " )"
             print question
             self.question_list.append(question)
 
@@ -89,8 +88,6 @@ class QuestionGenerator():
                     question = (" ".join([phrase[0],
                                 phrase[1], phrase[2],
                                 phrase[3], phrase[4]]))
-                question = (question +
-                            " (Index reference: " + item[0] + " )")
                 print question
                 self.question_list.append(question)
 

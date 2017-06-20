@@ -8,17 +8,17 @@
 				<div class="text-inner">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<h1 class=""> Get Started.</h1>
+							<h2 class=""> Get Started. Connect me to your Data</h2><br><br>
 							<div class="form-group ">
 								<form action="{{ url_for('connection_info') }}" method=POST class=conn-info>
 								<div class="form-group ">
 									<label>Connector-Type</label>
 									<select class="form-control"  name="connector-type">
-									  		<option value="elasticsearch">Elasticsearch</option>
+									  		<option value="elasticsearch">Oracle DB</option>
 											</select>
 								</div>
 								<div class="form-group ">
-									<label>Hostname</label>
+									<label>Connection-info</label>
 									<input class="form-control"  type=text name=hostname>
 								</div>
 								<div class="form-group ">
