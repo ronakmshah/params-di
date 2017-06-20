@@ -10,8 +10,11 @@
 			},
 			"aggs": {
 				"transaction_by_branch": {
-					"terms": { "field": "branch"}
-				}
+					"terms": { "field": "branch"},
+				        "aggs": {
+				                "sumof": { "sum": { "field": "amount" } }
+				        }
+                                }
 			}
 		}
 	}

@@ -64,7 +64,7 @@
 					</div>
 					<div class="toggler">
 						<a role="button" data-toggle="collapse" data-parent="#accordion" href="#myitems" aria-expanded="false" aria-controls="myitems">
-									 My Picks
+									 Top Picks
 				        </a>
 			        </div>
 					<div id="myitems" class="collapse in">
@@ -92,7 +92,7 @@
 										<div class="timer withdrawal" data-from="0" data-to="100"
 				      							data-speed="2000" data-refresh-interval="50"></div>
 				      							<div class="cust_data"> 
-												    customer=<span class="customer"></span><br>branch=<span class="branch"></span>
+												    customer : <span class="customer"></span><br>branch : <span class="branch"></span>
 												</div>
 										</div>
 									</div>
@@ -105,7 +105,7 @@
 										<div class="timer deposit" data-from="0" data-to="100" 
 				      							data-speed="2000" data-refresh-interval="50"></div>
 				      							<div class="cust_data"> 
-												    customer=<span class="customer"></span><br>branch=<span class="branch"></span>
+												    customer : <span class="customer"></span><br>branch : <span class="branch"></span>
 												</div>
 										</div>
 									</div>
@@ -144,7 +144,7 @@
    	    let transactions = tabify(JSON.parse({{session['special_query_list'][2]['response'] | tojson}}));
    	    let top5 = tabify(JSON.parse({{session['special_query_list'][0]['response'] | tojson}}));
    	    
-   	    let higestWithdrawal = tabify(JSON.parse({{session['special_query_list'][1]['response'] | tojson}})).pop();
+   	    let highestWithdrawal = tabify(JSON.parse({{session['special_query_list'][1]['response'] | tojson}})).pop();
    	    let highestDeposit = tabify(JSON.parse({{session['special_query_list'][3]['response'] | tojson}})).pop();
 
    	    function pageInit() {
@@ -157,7 +157,7 @@
 	   	    	jQuery(hclass).next('.cust_data').find('span.branch').text(obj.branch);
 	   	    }
 	   	    setvalues('.timer.deposit',highestDeposit, 'deposit' );
-	   	    setvalues('.timer.withdrawal',higestWithdrawal, 'withdrawal' );
+	   	    setvalues('.timer.withdrawal',highestWithdrawal, 'withdrawal' );
    	   		 //build bar graph // How many transaction each branch did?
    			
    			let deposits = transactions[0];
@@ -168,12 +168,12 @@
    			for (v of Object.values(deposits)) {
 				if (v.transaction_by_branch) {
 					barCategories.push(v.transaction_by_branch);
-					depositsValues.push(v.doc_count);
+					depositsValues.push(v.sumof);
 				}
 			}
 			for (v of Object.values(withdrawal)) {
 				if (v.transaction_by_branch) {
-					withDrawalValues.push(v.doc_count);
+					withDrawalValues.push(v.sumof);
 				}
 			}
    			Highcharts.chart('bar_container', {
@@ -193,13 +193,13 @@
 			    yAxis: {
 			        min: 0,
 			        title: {
-			            text: 'Amount (USD mn)'
+			            text: 'Amount (USD)'
 			        }
 			    },
 			    tooltip: {
 			        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 			        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-			            '<td style="padding:0"><b>{point.y:.1f} (USD mn)</b></td></tr>',
+			            '<td style="padding:0"><b>{point.y:.1f} (USD)</b></td></tr>',
 			        footerFormat: '</table>',
 			        shared: true,
 			        useHTML: true
@@ -255,7 +255,7 @@
 		            text: 'Top 5 customers by balance'
 		        },
 		        tooltip: {
-		            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+		            pointFormat: '<b>{point.y}</b>'
 		        },
 		        plotOptions: {
 		            pie: {
