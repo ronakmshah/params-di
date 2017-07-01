@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% block head %}
+    
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Params Data Insight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Params Data Insight" />
+    
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+    
+    
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+    <header role="banner" id="fh5co-header">
+            <div class="container">
+                <!-- <div class="row"> -->
+                <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <!-- Mobile Toggle Menu Button -->
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                 <a class="navbar-brand" href="{{url_for('connection_info')}}">Params Data Insight</a> 
+                </div>
+               
+                </nav>
+              
+          </div>
+    </header>
+   
+    {% endblock %}
+
+{% block content %}{% endblock %}
+   
+{% block footer %}
+        
+        <footer id="footer" role="contentinfo">
+        <div class="container">
+            <div class="">
+                <div class="col-md-12 text-center">
+                    <p>&copy; Params Data Insight Free HTML5. All Rights Reserved. </p>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+    
+    
+    
+
+    
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    </body>
+</html>
+{% endblock %}
+
+</body>
+</html>

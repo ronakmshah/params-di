@@ -162,7 +162,7 @@ class QuestionReader():
                 field = self.question.split(phrase, 1)[1].split(" ")[1]
                 string_query = copy.deepcopy(terms_query_part)
                 (string_query["aggs"]
-                    ["string_field_agg"]["terms"]) = {"field": field, "size": 0}
+                    ["string_field_agg"]["terms"]) = {"field": field}
 
         for phrase in string_field_singular_phrases:
             if (phrase in self.question):
