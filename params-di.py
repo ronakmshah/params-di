@@ -90,7 +90,7 @@ def question_page():
         question_reader = qreader.QuestionReader(
             db_conn, request.form["question"])
         result = question_reader.generate_result()
-        return render_template("question-list.html", result=str(result))
+        return result;
     return render_template("question-list.html",
                            question_list=session['question_list'])
 
