@@ -2,7 +2,7 @@
 {% block content %}
 <section id="fh5co-work" data-section="work" class="animated">
 		<div class="container">
-			<div class="row">
+			<div class="row init_hidden" style="display: none">
 				<div class="col-md-12 section-heading text-center question_container">
 					<h3 class="to-animate fadeInUp animated">Select a Question: </h3>
 					<div class="row">
@@ -43,11 +43,7 @@
 							  c-0.1,2.4-2.7,4.8-4.9,5.9c-32.2,15.3-64.5,30.3-96.8,45.4c-13.9,6.5-27.7,13.1-41.7,19.3C165.7,319.2,161.5,321.4,156.8,321.4z"/>
 							</svg>
 						</article>
-						<div class="row" style="
-						    /* display: table-cell; */
-						    text-align: center;
-						    text-shadow: 0 0 black;
-						">Understanding your data... </div>
+						<div class="row understand_data">Understanding your data... </div>
 					
 			</div>
 			<div class="row row-bottom-padded-sm">
@@ -57,7 +53,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row fixed_results" style="display:none; height: 0%">
+			<div class="row init_hidden" style="display:none">
 					<div class="row row-bottom-padded-sm">
 					<div class="col-mo-6 col-sm-6 col-xxs-12">
 						<div class="fh5co-project-item ">
@@ -128,7 +124,7 @@
 
    	    function pageInit() {
    	    	$('.loader_div').hide();
-   	    	$('.fixed_results').fadeIn(2000);
+   	    	$('.init_hidden').fadeIn(2000);
 		    
    	    	function setvalues(hclass, obj, type) {
 	   	    	jQuery(hclass).data('to', obj.amount);
