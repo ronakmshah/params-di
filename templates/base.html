@@ -10,18 +10,18 @@
     <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Params Data Insight</title>
+    <title>Virtual Assistant for your Business Data</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Params Data Insight" />
+    <meta name="description" content="Virtual Assistant for your Business Data" />
     
     <link rel="shortcut icon" href="favicon.ico">
 
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-    
+    <link href="https://fonts.googleapis.com/css?family=Marvel:400,700" rel="stylesheet">
     
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
@@ -32,8 +32,13 @@
                 <div class="navbar-header">
                     <!-- Mobile Toggle Menu Button -->
                     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                 <a class="navbar-brand" href="{{url_for('connection_info')}}">Params Data Insight</a> 
+                 <a class="navbar-brand" href="{{url_for('connection_info')}}">  <span><img style="margin-right:100px" src="{{ url_for('static', filename='images/logo.png') }}"/>
+                <span class="subtitle">
+                Virtual Assistant for your business data
+                </span>
+                 </span></a> 
                 </div>
+                
                
                 </nav>
               
@@ -48,14 +53,13 @@
         
         <footer id="footer" role="contentinfo">
         <div class="container">
-            <div class="">
                 <div class="col-md-12 text-center">
-                    <p>&copy; Params Data Insight Free HTML5. All Rights Reserved. </p>
+                    <p>&copy; Virtual Assistant for your Business Data. All Rights Reserved. </p>
                     
                 </div>
             </div>
             
-        </div>
+        
     </footer>
     
     
@@ -71,6 +75,3 @@
     </body>
 </html>
 {% endblock %}
-
-</body>
-</html>
