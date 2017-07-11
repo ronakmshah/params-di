@@ -154,6 +154,12 @@
   -webkit-animation-name: cycle3;
           animation-name: cycle3; }
 
+.subtitle {
+      display: block;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 h1 {
   text-align: center;
   color: #aaa;
@@ -302,3 +308,18 @@ button:focus {
     border-width: 1px;
     border-style: dotted;
 }
+
+.toggler {
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+    margin-bottom: 10px;
+    border-bottom-color: grey;
+}
+
+#fh5co-work .toggler a {
+        text-decoration: none;
+    font-size: 24px;
+
+}
+  
+  

@@ -16,8 +16,7 @@
     
     <link rel="shortcut icon" href="favicon.ico">
 
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-    
+    <link href="https://fonts.googleapis.com/css?family=Marvel:400,700" rel="stylesheet">
     
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
@@ -33,9 +32,13 @@
                 <div class="navbar-header">
                     <!-- Mobile Toggle Menu Button -->
                     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                 <a class="navbar-brand" href="{{url_for('connection_info')}}">  <span><img style="margin-right:100px" src="{{ url_for('static', filename='images/logo.png') }}"/></span></a> 
+                 <a class="navbar-brand" href="{{url_for('connection_info')}}">  <span><img style="margin-right:100px" src="{{ url_for('static', filename='images/logo.png') }}"/>
+                <span class="subtitle">
+                Virtual Assistant for your business data
+                </span>
+                 </span></a> 
                 </div>
-                <div class="nav navbar-nav navbar-right"><h1> Virtual Assistant for your Business Data</h1></div>
+                
                
                 </nav>
               
