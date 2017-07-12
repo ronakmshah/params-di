@@ -37,7 +37,7 @@
 									<form id="questions_form" action="{{ url_for('question_page') }}" method=POST class=questions>
 									<div class="form-group">
 										
-										<select name="question">
+										<select name="question"  multiple="multiple">
 											<option>For last month return max of balance For every customer where branch = Mountain-View</option>
 											<option>For last month return sum of amount For every branch where transaction_type = Deposit</option>
 											{% for question in question_list %}
@@ -134,18 +134,19 @@
    <script src="{{ url_for('static', filename='js/jquery.countTo.js') }}"></script>
    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
    <script>
-   Highcharts.setOptions({
-	    chart: {
-	        style: {
-	            fontFamily: "Marvel",
-	        }
-	    }
-	});
+	   Highcharts.setOptions({
+		    chart: {
+		        style: {
+		            fontFamily: "Marvel",
+		        }
+		    }
+		});
    	    let transactions = tabify(JSON.parse({{session['special_query_list'][2]['response'] | tojson}}));
    	    let top5 = tabify(JSON.parse({{session['special_query_list'][0]['response'] | tojson}}));
    	    
    	    let higestWithdrawal = tabify(JSON.parse({{session['special_query_list'][1]['response'] | tojson}})).pop();
    	    let highestDeposit = tabify(JSON.parse({{session['special_query_list'][3]['response'] | tojson}})).pop();
+   	    let $select = null;
 
    	    function pageInit() {
    	    	$('.loader_div').hide();
@@ -291,10 +292,10 @@
 		    			let chartCategories = [];
 		    			let chartValues = [];
 		    			// get the y axis plot from the question string. 
-		    			let question = $('select[name="question"]').val();
+		    			let question = $select.val()[0] || '';
 		    			let matches = question.match(/(?:(?:sum of)|(?:max of)) (\w+?) /);
 		    			let yLabel = '';
-		    			if (matches[1]) {
+		    			if (matches && matches[1]) {
 		    				let yLabel = matches[1];
 		    			} else {
 		    				alert('Question not supported yet');
@@ -361,7 +362,10 @@
    	    }
 
    		$(document).ready(function () {
-   			$('select[name="question"]').select2();
+   			$select = $('select[name="question"]').select2({
+   				tags: true, 
+   				maximumSelectionLength: 1
+   			});
    			setTimeout(function() {
    				pageInit();
    			}, 5000); 

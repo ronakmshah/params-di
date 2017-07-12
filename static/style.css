@@ -322,4 +322,15 @@ button:focus {
 
 }
   
-  
+/*select2 tags fix*/
+.select2-container .select2-selection span:first-child {
+    border-style: none;
+}  
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: rgba(228, 228, 228, 0);
+    border: none;
+    
+    margin-top: 0;
+    
+}
