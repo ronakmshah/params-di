@@ -30,7 +30,10 @@ special_query = {
                     },
                     "aggs": {
                         "transaction_by_branch": {
-                            "terms": { "field": "branch"}
+                            "terms": { "field": "branch"},
+                            "aggs": {
+                                "sumof": { "sum": { "field": "amount" } }
+                            }
                         }
                     }
                 }
@@ -43,6 +46,11 @@ special_query = {
             "sort": [
                 {"balance": {"order": "desc"}}
             ],
+            "query": {
+                "range": {
+                    "timestamp": { "lte": "now", "gte": "now-1d" }
+                }
+            },
             "_source": ["balance", "customer", "branch", "timestamp"]
         }
     },
@@ -117,13 +125,14 @@ def connection_info():
         global special_query
         special_query_item = {}
         for question, query_item in special_query.iteritems():
+            print question
             response = (
                 sq_reader.special_query_es_response(db_conn,
                     query_item.get("query")))
+	    print response
             special_query_item['question'] = question
             special_query_item['response'] = response
             special_query_list.append(copy.deepcopy(special_query_item))
-        print special_query_list
         session['special_query_list'] = special_query_list
         print "Questions generated"
         return redirect(url_for(".question_page"))
