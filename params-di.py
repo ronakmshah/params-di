@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import argparse
+import copy
 
 from flask import Flask
 from flask import redirect, render_template, request, session, url_for
@@ -14,6 +15,70 @@ db_conn = None
 app = Flask(__name__)
 app.secret_key = (
     '\x16T@g\xcf\xdcGRzn\xf5\xc4\x068\xb9\xf7\xf7r]\xf6d\x96\x9a\xdd')
+
+special_query = {
+    "Number of transactions for every branch": {
+        "query": {
+            "size": 0,
+            "aggs": {
+                "transaction": {
+                    "filters": {
+                        "filters": {
+                            "withdrawal": {"match": {"transaction_type": "Withdrawal"}},
+                            "deposit": {"match": {"transaction_type": "Deposit"}}
+                        }
+                    },
+                    "aggs": {
+                        "transaction_by_branch": {
+                            "terms": { "field": "branch"},
+                            "aggs": {
+                                "sumof": { "sum": { "field": "amount" } }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "Top 5 customers by balance": {
+        "query": {
+            "size": 5,
+            "sort": [
+                {"balance": {"order": "desc"}}
+            ],
+            "query": {
+                "range": {
+                    "timestamp": { "lte": "now", "gte": "now-1d" }
+                }
+            },
+            "_source": ["balance", "customer", "branch", "timestamp"]
+        }
+    },
+    "Maximum Withdrawal": {
+        "query": {
+            "size": 1,
+            "sort": [
+                {"amount": {"order": "desc"}}
+            ],
+            "_source": ["customer", "amount", "branch"],
+            "query": {
+                "term": {"transaction_type": "Withdrawal"}
+            }
+        }
+    },
+    "Maximum Deposit": {
+        "query": {
+            "size": 1,
+            "sort": [
+                {"amount": {"order": "desc"}}
+            ],
+            "_source": ["customer", "amount", "branch"],
+            "query": {
+                "term": {"transaction_type": "Deposit"}
+            }
+        }
+    }
+}
 
 
 def configRead():
@@ -33,7 +98,7 @@ def question_page():
         question_reader = qreader.QuestionReader(
             db_conn, request.form["question"])
         result = question_reader.generate_result()
-        return render_template("question-list.html", result=str(result))
+        return result;
     return render_template("question-list.html",
                            question_list=session['question_list'])
 
@@ -53,6 +118,22 @@ def connection_info():
         schema_reader = schema_read(db_conn)
         print "Schema Read"
         session['question_list'] = question_generator(schema_reader, db_conn)
+        # Special questions for the demo only
+        special_query_list = []
+        sq_reader = qreader.QuestionReader(
+                                    db_conn, None)
+        global special_query
+        special_query_item = {}
+        for question, query_item in special_query.iteritems():
+            print question
+            response = (
+                sq_reader.special_query_es_response(db_conn,
+                    query_item.get("query")))
+	    print response
+            special_query_item['question'] = question
+            special_query_item['response'] = response
+            special_query_list.append(copy.deepcopy(special_query_item))
+        session['special_query_list'] = special_query_list
         print "Questions generated"
         return redirect(url_for(".question_page"))
     return render_template("conn-info.html", error=error)

@@ -1,0 +1,10 @@
+{
+	"size": 1,
+	"sort": [
+		{"amount": {"order": "desc"}}
+	],
+	"_source": ["customer", "amount", "branch"],
+	"query": {
+		"term": {"transaction_type": "Deposit"}
+	}
+}

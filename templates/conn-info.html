@@ -1,18 +1,46 @@
-<!doctype html>
-<title>paramDI</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-	<h1>params-DI </h1>
-</div>
-<form action="{{ url_for('connection_info') }}" method=POST class=conn-info>
-	<dl>
-		<dt>Connector-Type
-		<dd>
-			<select name="connector-type">
-	  		<option value="elasticsearch">Elasticsearch</option>
-			</select>
-		<dt> Hostname
-		<dd><input type=text name=hostname>
-		<dd><input type=submit name=Submit>
-	</dl>
-</form>
+{% extends "base.html" %}
+	
+{% block content %}
+     <section id="fh5co-home" data-section="home" style="background-image: url({{url_for('static', filename="images/full_image_2.jpg")}});" data-stellar-background-ratio="0.5">
+        <div class="gradient"></div>
+        <div class="container">
+			<div class="text-wrap">
+				<div class="text-inner">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h2 class=""> Get Started. Connect me to your Data</h2><br><br>
+							<div class="form-group ">
+								<form action="{{ url_for('connection_info') }}" method=POST class=conn-info>
+								<div class="form-group ">
+									<label>Connector-Type</label>
+									<select class="form-control"  name="connector-type">
+									  		<option value="elasticsearch">Oracle DB</option>
+                                                                                        <option value="elasticsearch">Microsoft SQL</option>
+                        								<option value="elasticsearch">Amazon Redshift</option>
+											<option value="elasticsearch">Postgresql</option>
+											</select>
+								</div>
+								<div class="form-group ">
+									<label>Connection-info</label>
+									<input class="form-control"  type=text name=hostname>
+								</div>
+								<div class="form-group ">
+									<input class="btn btn-primary btn-lg" type=submit name=Submit>
+								</div>
+									
+								</form>
+							</div>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="slant"></div>
+    </section>
+{% endblock %}
+	
+	
+	
+	
+
