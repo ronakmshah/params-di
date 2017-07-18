@@ -28,6 +28,8 @@ def handle_command(command, channel):
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
     """
+    print command
+    print question_list[0]
     if command == "question list":
         if len(question_list) > 0:
             response = ""
@@ -44,11 +46,20 @@ def handle_command(command, channel):
                           text=response, as_user=True)
     elif command.startswith("question no"):
         qno = int(command.split("question no")[1].strip())
-        question_reader = qreader.QuestionReader(
-            db_conn, question_list[qno-1])
-        response = question_reader.generate_result()
-        slack_client.api_call("chat.postMessage", channel=channel,
-                          text=response, as_user=True)
+        if qno == 1:
+            slack_client.api_call("chat.postMessage", channel=channel, text="",
+                          attachments=[{"title": "Transactions","image_url": "https://preview.ibb.co/j029fF/chart.jpg"}],
+                          as_user=True)
+        else:
+            question_reader = qreader.QuestionReader(
+                db_conn, question_list[qno-1])
+            response = question_reader.generate_result()
+            slack_client.api_call("chat.postMessage", channel=channel,
+                              text=response, as_user=True)
+    elif command == question_list[0]:
+	slack_client.api_call("chat.postMessage", channel=channel, text="",
+        	attachments=[{"title": "Transactions","image_url": "https://preview.ibb.co/j029fF/chart.jpg"}],
+                as_user=True)
     elif command == "hi" or command == "hello" or command == "help":
         response = "Hi\n"
         response += "Type one of the following\n"
@@ -79,9 +90,14 @@ def parse_slack_output(slack_rtm_output):
 
 def question_generator(schema_reader, db_conn):
     # Generate questions based on reading the schema
+    qlist = []
+    qlist.append("number of transactions for every branch")
+    qlist.append("Top 5 customers by balance")
+    qlist.append("Maximum Withdrawal")
+    qlist.append("Maximum Deposit")
     qg_handle = qg.QuestionGenerator(schema_reader.schema, db_conn)
-    question_list = qg_handle.generate()
-    return question_list
+    qlist = qlist + qg_handle.generate()
+    return qlist
 
 def schema_read(db_conn):
     # Read schema

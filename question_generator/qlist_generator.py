@@ -12,7 +12,7 @@ numeric_field_phrases = [
 ]
 
 string_field_phrases = [
-    "where % = <x>",
+    "where % = ",
     "For every"
 ]
 
@@ -94,9 +94,9 @@ class QuestionGenerator():
     def es_question_generator(self, schema):
         for schema_item in schema:
             for item in schema_item.iteritems():
-                self._es_num_phrase_generator(item)
+                #self._es_num_phrase_generator(item)
                 self._es_num_and_date_phrase_generator(item)
-                self._es_str_phrase_generator(item)
+                #self._es_str_phrase_generator(item)
                 self._es_str_and_date_phrase_generator(item)
                 self._es_str_num_and_date_phrase_generator(item)
         print("%d total questions generated" % len(self.question_list))
